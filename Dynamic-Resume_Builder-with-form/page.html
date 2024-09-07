@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Resume Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Resume Builder</h1>
+        <form id="resumeForm">
+            <fieldset>
+                <legend>Personal Information</legend>
+                <input type="text" id="name" name="name" placeholder="Full Name" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+            </fieldset>
+            
+            <fieldset>
+                <legend>Education</legend>
+                <div id="educationFields">
+                    <div class="education-entry">
+                        <input type="text" name="degree" placeholder="Degree" required>
+                        <input type="text" name="school" placeholder="School" required>
+                        <input type="number" name="graduationYear" placeholder="Graduation Year" required>
+                    </div>
+                </div>
+                <button type="button" id="addEducation">Add Education</button>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Work Experience</legend>
+                <div id="experienceFields">
+                    <div class="experience-entry">
+                        <input type="text" name="jobTitle" placeholder="Job Title" required>
+                        <input type="text" name="company" placeholder="Company" required>
+                        <input type="number" name="startYear" placeholder="Start Year" required>
+                        <input type="number" name="endYear" placeholder="End Year">
+                        <textarea name="jobDescription" placeholder="Job Description" required></textarea>
+                    </div>
+                </div>
+                <button type="button" id="addExperience">Add Experience</button>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Skills</legend>
+                <input type="text" id="skillInput" placeholder="Enter a skill">
+                <button type="button" id="addSkill">Add Skill</button>
+                <div id="skillsList"></div>
+            </fieldset>
+            
+            <button type="submit">Generate Resume</button>
+        </form>
+        
+        <div id="resumeOutput"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
