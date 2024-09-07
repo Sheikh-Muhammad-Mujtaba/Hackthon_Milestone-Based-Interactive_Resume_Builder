@@ -71,6 +71,7 @@ fieldset {
     padding: 15px;
     margin-bottom: 20px;
     background-color: #f9f9f9;
+    position: relative;
 }
 
 legend {
@@ -83,7 +84,8 @@ input[type="text"],
 input[type="email"],
 input[type="tel"],
 input[type="number"],
-textarea {
+textarea,
+input[type="file"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -112,6 +114,15 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+/* Remove Button */
+.removeButton {
+    background-color: #FF4136;
+}
+
+.removeButton:hover {
+    background-color: #C8102E;
 }
 
 /* Skills List */

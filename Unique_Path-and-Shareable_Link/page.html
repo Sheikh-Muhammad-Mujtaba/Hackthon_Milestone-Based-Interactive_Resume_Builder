@@ -9,13 +9,13 @@
 <body>
     <div class="container">
         <h1>Dynamic Shareable Resume Builder</h1>
-        
+
         <!-- Username Input Section -->
         <div id="usernameInput">
             <input type="text" id="username" placeholder="Enter your username">
             <button id="setUsername">Set Username</button>
         </div>
-        
+
         <!-- Resume Form -->
         <form id="resumeForm" class="hidden">
             <fieldset>
@@ -23,34 +23,37 @@
                 <input type="text" id="name" name="name" placeholder="Full Name" required>
                 <input type="email" id="email" name="email" placeholder="Email" required>
                 <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+                <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
             </fieldset>
-            
+
             <fieldset>
                 <legend>Education</legend>
                 <div id="educationFields">
                     <div class="education-entry">
-                        <input type="text" name="degree" placeholder="Degree" required>
-                        <input type="text" name="school" placeholder="School" required>
-                        <input type="number" name="graduationYear" placeholder="Graduation Year" required>
+                        <input type="text" name="degree" placeholder="Degree">
+                        <input type="text" name="school" placeholder="School">
+                        <input type="number" name="graduationYear" placeholder="Graduation Year">
+                        <button type="button" class="removeButton">Remove</button>
                     </div>
                 </div>
                 <button type="button" id="addEducation">Add Education</button>
             </fieldset>
-            
+
             <fieldset>
                 <legend>Work Experience</legend>
                 <div id="experienceFields">
                     <div class="experience-entry">
-                        <input type="text" name="jobTitle" placeholder="Job Title" required>
-                        <input type="text" name="company" placeholder="Company" required>
-                        <input type="number" name="startYear" placeholder="Start Year" required>
+                        <input type="text" name="jobTitle" placeholder="Job Title">
+                        <input type="text" name="company" placeholder="Company">
+                        <input type="number" name="startYear" placeholder="Start Year">
                         <input type="number" name="endYear" placeholder="End Year">
-                        <textarea name="jobDescription" placeholder="Job Description" required></textarea>
+                        <textarea name="jobDescription" placeholder="Job Description"></textarea>
+                        <button type="button" class="removeButton">Remove</button>
                     </div>
                 </div>
                 <button type="button" id="addExperience">Add Experience</button>
             </fieldset>
-            
+
             <fieldset>
                 <legend>Skills</legend>
                 <input type="text" id="skillInput" placeholder="Enter a skill">
@@ -59,7 +62,7 @@
             </fieldset>
             <button type="submit">Generate Resume</button>
         </form>
-        
+
         <!-- Resume Output Section -->
         <div id="resumeOutput" class="editable-resume hidden">
             <!-- The resume will be dynamically inserted here -->
@@ -70,11 +73,10 @@
             <input type="text" id="shareLink" readonly>
             <button id="copyLink">Copy Link</button>
             <button id="downloadPDF">Download as PDF</button>
+            <button id="editResume">Edit Resume</button>
         </div>
     </div>
 
-    <!-- External library for PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
