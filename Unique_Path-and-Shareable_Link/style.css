@@ -1,0 +1,192 @@
+/* Styling for the body and resume container */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #9face6);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling the form elements */
+fieldset {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+input, textarea {
+    width: 50%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    height: 100px; 
+    resize: vertical; 
+    width: 50%; 
+    margin-top: 20px; 
+    box-sizing: border-box; 
+}
+
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+}
+
+/* Styling for dynamically added entries */
+.education-entry, .experience-entry {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+}
+
+.removeEducation, .removeExperience {
+    background-color: #e53935;
+    margin-left: auto;
+}
+
+.removeEducation:hover, .removeExperience:hover {
+    background-color: #d32f2f;
+}
+
+/* Resume Edit mode */
+.edit-mode {
+    display: none;
+}
+.read-mode {
+    display: block;
+}
+.resume-output {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 10px;
+}
+.edit-mode input, .edit-mode textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.edit-mode .skills-editable {
+    display: block;
+}
+.read-mode .skills-editable {
+    display: none;
+}
+.skill-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.skill-item svg {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: red;
+}
+
+button.edit-mode {
+    display: inline;
+}
+
+.edit-mode .removeSkill {
+    display: inline;
+}
+
+/* Resume Output Styling */
+#resumeOutput {
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 800px;
+    margin: 20px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+#resumeOutput img {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 3px solid #007BFF;
+    transition: transform 0.3s ease;
+    display: block;
+    margin-bottom: 16px;
+}
+
+#resumeOutput h1 {
+    margin-top: 0;
+}
+
+#resumeOutput .section {
+    margin-top: 20px;
+}
+
+#resumeOutput .section h1 {
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 5px;
+    color: #007BFF;
+    font-size: 1.7em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+#resumeOutput .section p, .section ul {
+    font-size: 1.1em;
+    color: #555;
+}
+
+#resumeOutput .section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+#resumeOutput .section ul li {
+    margin-bottom: 10px;
+}
+
+
+.hidden {
+    display: none;
+}
+
+#shareURL {
+    margin-top: 10px;
+    font-size: 14px;
+}
