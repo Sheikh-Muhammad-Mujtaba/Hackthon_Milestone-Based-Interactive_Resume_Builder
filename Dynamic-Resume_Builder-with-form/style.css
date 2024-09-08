@@ -1,154 +1,136 @@
+/* Styling for the body and resume container */
 body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #9face6);
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
+    max-width: 800px;
+    margin: 20px auto;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 40px;
     border-radius: 8px;
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
-    text-align: center;
-    color: #333;
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 
-.form-preview-container {
-    display: flex;
-    gap: 2rem;
-}
-
-form {
-    flex: 1;
-}
-
+/* Styling the form elements */
 fieldset {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 1rem;
-    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
 }
 
 legend {
     font-weight: bold;
-    color: #333;
 }
 
-label {
-    display: block;
-    margin-top: 0.5rem;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.25rem;
-    border: 1px solid #ddd;
+input, textarea {
+    width: 50%;
+    padding: 8px;
+    margin-bottom: 10px;
     border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
 button {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #007BFF;
+    color: white;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
-    margin-top: 0.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
     background-color: #0056b3;
+    transform: translatey(-3px);
 }
 
-#resumeOutput {
-    margin-top: 2rem;
-    background-color: #fff;
-    padding: 2rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.resume {
-    font-family: 'Helvetica', sans-serif;
-    color: #333;
-    line-height: 1.6;
-}
-
-.resume .header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.resume .profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 2rem;
-}
-
-.resume h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    color: #007bff;
-}
-
-.resume h2 {
-    color: #007bff;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 0.5rem;
-    margin-top: 2rem;
-}
-
-.resume ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.resume .skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.resume .skill {
-    background-color: #e9ecef;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-}
-
-/* Additional Styling for Dynamic Form Fields */
+/* Styling for dynamically added entries */
 .education-entry, .experience-entry {
-    margin-bottom: 1rem;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: flex-start;
 }
 
-#skillsList {
-    margin-top: 0.5rem;
+.removeEducation, .removeExperience {
+    background-color: #e53935;
+    margin-left: auto;
 }
 
-.skill {
-    background-color: #e9ecef;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    margin-right: 0.5rem;
+.removeEducation:hover, .removeExperience:hover {
+    background-color: #d32f2f;
 }
 
-@media (max-width: 768px) {
-    .form-preview-container {
-        flex-direction: column;
-    }
+/* Resume Output Styling */
+#resumeOutput {
+     background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 800px;
+    margin: 20px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+#resumeOutput img {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 3px solid #007BFF;
+    transition: transform 0.3s ease;
+    display: block; 
+    margin-bottom: 16px; 
+}
+
+#resumeOutput h1 {
+    margin-top: 0;
+}
+
+#resumeOutput h2 {
+    margin-top: 0;
+}
+
+#resumeOutput .section {
+    margin-top: 20px;
+}
+
+
+#resumeOutput .section h1 {
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 5px;
+    color: #007BFF;
+    font-size: 1.7em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+#resumeOutput .section p, .section ul {
+    font-size: 1.1em;
+    color: #555;
+}
+
+#resumeOutput .section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+#resumeOutput .section ul li {
+    margin-bottom: 10px;
 }

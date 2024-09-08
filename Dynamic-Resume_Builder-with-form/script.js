@@ -1,107 +1,140 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('resumeForm');
-    const addEducationBtn = document.getElementById('addEducation');
-    const addExperienceBtn = document.getElementById('addExperience');
-    const addSkillBtn = document.getElementById('addSkill');
-    const skillInput = document.getElementById('skillInput');
-    const skillsList = document.getElementById('skillsList');
-    const resumeOutput = document.getElementById('resumeOutput');
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("resumeForm");
+    const educationFields = document.getElementById("educationFields");
+    const experienceFields = document.getElementById("experienceFields");
+    const skillsList = document.getElementById("skillsList");
+    const resumeOutput = document.getElementById("resumeOutput");
 
-    addEducationBtn.addEventListener('click', () => addField('education'));
-    addExperienceBtn.addEventListener('click', () => addField('experience'));
-    addSkillBtn.addEventListener('click', addSkill);
-    form.addEventListener('submit', generateResume);
-
-    function addField(type) {
-        const container = document.getElementById(`${type}Fields`);
-        const newField = document.createElement('div');
-        newField.className = `${type}-entry`;
-        
-        if (type === 'education') {
-            newField.innerHTML = `
-                <input type="text" name="degree" placeholder="Degree" required>
-                <input type="text" name="school" placeholder="School" required>
-                <input type="number" name="graduationYear" placeholder="Graduation Year" required>
-            `;
-        } else {
-            newField.innerHTML = `
-                <input type="text" name="jobTitle" placeholder="Job Title" required>
-                <input type="text" name="company" placeholder="Company" required>
-                <input type="number" name="startYear" placeholder="Start Year" required>
-                <input type="number" name="endYear" placeholder="End Year">
-                <textarea name="jobDescription" placeholder="Job Description" required></textarea>
-            `;
-        }
-        
-        container.appendChild(newField);
-    }
-
-    function addSkill() {
-        const skill = skillInput.value.trim();
-        if (skill) {
-            const skillElement = document.createElement('span');
-            skillElement.className = 'skill';
-            skillElement.textContent = skill;
-            skillsList.appendChild(skillElement);
-            skillInput.value = '';
-        }
-    }
-
-    function generateResume(event) {
-        event.preventDefault();
-        const formData = new FormData(form);
-        const resume = {
-            name: formData.get('name'),
-            email: formData.get('email'),
-            phone: formData.get('phone'),
-            education: [],
-            experience: [],
-            skills: Array.from(skillsList.children).map(skill => skill.textContent || '')
-        };
-
-        document.querySelectorAll('.education-entry').forEach((entry) => {
-            const inputs = entry.querySelectorAll('input');
-            resume.education.push({
-                degree: inputs[0].value,
-                school: inputs[1].value,
-                graduationYear: parseInt(inputs[2].value)
-            });
-        });
-
-        document.querySelectorAll('.experience-entry').forEach((entry) => {
-            const inputs = entry.querySelectorAll('input');
-            const textarea = entry.querySelector('textarea');
-            resume.experience.push({
-                jobTitle: inputs[0].value,
-                company: inputs[1].value,
-                startYear: parseInt(inputs[2].value),
-                endYear: inputs[3].value || 'Present',
-                jobDescription: textarea.value
-            });
-        });
-
-        displayResume(resume);
-    }
-
-    function displayResume(resume) {
-        resumeOutput.innerHTML = `
-            <h2>${resume.name}</h2>
-            <p>Email: ${resume.email} | Phone: ${resume.phone}</p>
-            
-            <h3>Education</h3>
-            ${resume.education.map(edu => `
-                <p>${edu.degree} - ${edu.school}, ${edu.graduationYear}</p>
-            `).join('')}
-            
-            <h3>Experience</h3>
-            ${resume.experience.map(exp => `
-                <h4>${exp.jobTitle} at ${exp.company}</h4>
-                <p>${exp.startYear} - ${exp.endYear}</p>
-                <p>${exp.jobDescription}</p>
-            `).join('')}
-            
-            <h3>Skills</h3>
-            <p>${resume.skills.join(', ')}</p>
+    // Add Education
+    document.getElementById("addEducation").addEventListener("click", () => {
+        const newField = document.createElement("div");
+        newField.classList.add("education-entry");
+        newField.innerHTML = `
+            <input type="text" name="degree" placeholder="Degree" required>
+            <input type="text" name="school" placeholder="School" required>
+            <input type="number" name="graduationYear" placeholder="Graduation Year" required>
+            <button type="button" class="removeEducation">Remove</button>
         `;
+        educationFields.appendChild(newField);
+
+        // Add Remove button functionality
+        newField.querySelector(".removeEducation").addEventListener("click", function () {
+            newField.remove();
+        });
+    });
+
+    // Add Work Experience
+    document.getElementById("addExperience").addEventListener("click", () => {
+        const newField = document.createElement("div");
+        newField.classList.add("experience-entry");
+        newField.innerHTML = `
+            <input type="text" name="jobTitle" placeholder="Job Title">
+            <input type="text" name="company" placeholder="Company">
+            <input type="number" name="startYear" placeholder="Start Year">
+            <input type="number" name="endYear" placeholder="End Year">
+            <textarea name="jobDescription" placeholder="Job Description"></textarea>
+            <button type="button" class="removeExperience">Remove</button>
+        `;
+        experienceFields.appendChild(newField);
+
+        // Add Remove button functionality
+        newField.querySelector(".removeExperience").addEventListener("click", function () {
+            newField.remove();
+        });
+    });
+
+   // Add Skills
+document.getElementById("addSkill").addEventListener("click", () => {
+    const skillInput = document.getElementById("skillInput");
+    const skillValue = skillInput.value.trim();
+
+    if (skillValue) {
+        const skillItem = document.createElement("div");
+        skillItem.textContent = skillValue;
+        document.getElementById("skillsList").appendChild(skillItem);
+
+        skillInput.value = "";
     }
+});
+
+
+    // Form submission and resume generation
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        resumeOutput.innerHTML = "";
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const profilePicture = document.getElementById("profilePicture").files[0];
+
+        // Personal Information Section
+        const personalInfoSection = document.createElement("div");
+        personalInfoSection.classList.add("section");
+	
+        if (profilePicture) {
+            const imgElement = document.createElement("img");
+            imgElement.src = URL.createObjectURL(profilePicture);
+            personalInfoSection.appendChild(imgElement);
+        }
+
+        personalInfoSection.innerHTML += `<h1>${name}</h1><h3>Contact</h3><p>Email: ${email}</p><p>Phone: ${phone || "Not provided"}</p>`;
+        resumeOutput.appendChild(personalInfoSection);
+
+        // Education Section
+        const educationSection = document.createElement("div");
+        educationSection.classList.add("section");
+        educationSection.innerHTML = "<h3>Education</h3>";
+
+        document.querySelectorAll(".education-entry").forEach((entry) => {
+            const degree = entry.querySelector('input[name="degree"]').value;
+            const school = entry.querySelector('input[name="school"]').value;
+            const graduationYear = entry.querySelector('input[name="graduationYear"]').value;
+            educationSection.innerHTML += `<p>${degree} from ${school}, year( ${graduationYear} )</p>`;
+        });
+        resumeOutput.appendChild(educationSection);
+
+        // Work Experience Section (optional)
+        const experienceSection = document.createElement("div");
+        experienceSection.classList.add("section");
+        experienceSection.innerHTML = "<h3>Work Experience</h3>";
+
+        document.querySelectorAll(".experience-entry").forEach((entry) => {
+            const jobTitle = entry.querySelector('input[name="jobTitle"]').value;
+            const company = entry.querySelector('input[name="company"]').value;
+            const startYear = entry.querySelector('input[name="startYear"]').value;
+            const endYear = entry.querySelector('input[name="endYear"]').value;
+            const jobDescription = entry.querySelector('textarea[name="jobDescription"]').value;
+
+            if (jobTitle || company) {
+                experienceSection.innerHTML += `<p>${jobTitle} at ${company} (${startYear} - ${endYear || "Present"})</p><p>${jobDescription || ""}</p>`;
+            }
+        });
+
+        if (experienceSection.innerHTML !== "<h3>Work Experience</h3>") {
+            resumeOutput.appendChild(experienceSection);
+        }
+
+        // Skills Section
+        const skillsSection = document.createElement("div");
+        skillsSection.classList.add("section");
+        skillsSection.innerHTML = "<h3>Skills</h3>";
+
+       if (skillsList.children.length > 0) {
+   
+    const ulElement = document.createElement("ul");
+    
+    // Iterate through the skills and add them as <li> items
+    Array.from(skillsList.children).forEach((skill) => {
+        const liElement = document.createElement("li");
+        liElement.textContent = skill.textContent;
+        ulElement.appendChild(liElement);
+    });
+    
+    // Append the <ul> to the skills section
+    skillsSection.appendChild(ulElement);
+    resumeOutput.appendChild(skillsSection);
+}
+
+    });
 });
