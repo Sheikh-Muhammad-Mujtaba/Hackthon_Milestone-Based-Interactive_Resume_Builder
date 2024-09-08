@@ -45,8 +45,7 @@ input, textarea {
 textarea {
     height: 100px; 
     resize: vertical; 
-    display: block; 
-    width: 100%; 
+    width: 50%; 
     margin-top: 20px; 
     box-sizing: border-box; 
 }
