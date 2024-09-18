@@ -1,11 +1,15 @@
-// script
-
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("resumeForm") as HTMLFormElement;
-    const educationFields = document.getElementById("educationFields") as HTMLDivElement;
-    const experienceFields = document.getElementById("experienceFields") as HTMLDivElement;
-    const skillsList = document.getElementById("skillsList") as HTMLDivElement;
-    const resumeOutput = document.getElementById("resumeOutput") as HTMLDivElement;
+    // Grabbing the form element
+    const form = document.getElementById("resumeForm") as HTMLFormElement | null;
+    const educationFields = document.getElementById("educationFields") as HTMLDivElement | null;
+    const experienceFields = document.getElementById("experienceFields") as HTMLDivElement | null;
+    const skillsList = document.getElementById("skillsList") as HTMLDivElement | null;
+    const resumeOutput = document.getElementById("resumeOutput") as HTMLDivElement | null;
+
+    if (!form || !educationFields || !experienceFields || !skillsList || !resumeOutput) {
+        console.error("One or more elements not found");
+        return; // Early exit if elements aren't found
+    }
 
     // Add Education
     document.getElementById("addEducation")?.addEventListener("click", () => {
@@ -47,26 +51,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add Skills
     document.getElementById("addSkill")?.addEventListener("click", () => {
-        const skillInput = document.getElementById("skillInput") as HTMLInputElement;
-        const skillValue = skillInput.value.trim();
+        const skillInput = document.getElementById("skillInput") as HTMLInputElement | null;
+        if (!skillInput) return;
 
+        const skillValue = skillInput.value.trim();
         if (skillValue) {
             const skillItem = document.createElement("div");
             skillItem.textContent = skillValue;
             skillsList.appendChild(skillItem);
-
-            skillInput.value = "";
+            skillInput.value = ""; // Clear the input field
         }
     });
 
     // Form submission and resume generation
     form.addEventListener("submit", function (e: Event) {
-        e.preventDefault();
-        resumeOutput.innerHTML = "";
+        e.preventDefault(); // Prevent form from submitting the default way
+
+        resumeOutput.innerHTML = ""; // Clear the output
 
         const name = (document.getElementById("name") as HTMLInputElement).value;
         const email = (document.getElementById("email") as HTMLInputElement).value;
-        const phone = (document.getElementById("phone") as HTMLInputElement).value;
+        const phone = (document.getElementById("phone") as HTMLInputElement).value || "Not provided";
         const profilePicture = (document.getElementById("profilePicture") as HTMLInputElement).files?.[0];
 
         // Personal Information Section
@@ -79,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
             personalInfoSection.appendChild(imgElement);
         }
 
-        personalInfoSection.innerHTML += `<h1>${name}</h1><h3>Contact</h3><p>Email: ${email}</p><p>Phone: ${phone || "Not provided"}</p>`;
+        personalInfoSection.innerHTML += `<h1>${name}</h1><h3>Contact</h3><p>Email: ${email}</p><p>Phone: ${phone}</p>`;
         resumeOutput.appendChild(personalInfoSection);
 
         // Education Section
@@ -87,10 +92,11 @@ document.addEventListener("DOMContentLoaded", function () {
         educationSection.classList.add("section");
         educationSection.innerHTML = "<h3>Education</h3>";
 
-        document.querySelectorAll(".education-entry").forEach((entry: Element) => {
+        document.querySelectorAll(".education-entry").forEach((entry) => {
             const degree = (entry.querySelector('input[name="degree"]') as HTMLInputElement).value;
             const school = (entry.querySelector('input[name="school"]') as HTMLInputElement).value;
             const graduationYear = (entry.querySelector('input[name="graduationYear"]') as HTMLInputElement).value;
+
             educationSection.innerHTML += `<p>${degree} from ${school}, year(${graduationYear})</p>`;
         });
         resumeOutput.appendChild(educationSection);
@@ -100,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
         experienceSection.classList.add("section");
         experienceSection.innerHTML = "<h3>Work Experience</h3>";
 
-        document.querySelectorAll(".experience-entry").forEach((entry: Element) => {
+        document.querySelectorAll(".experience-entry").forEach((entry) => {
             const jobTitle = (entry.querySelector('input[name="jobTitle"]') as HTMLInputElement).value;
             const company = (entry.querySelector('input[name="company"]') as HTMLInputElement).value;
             const startYear = (entry.querySelector('input[name="startYear"]') as HTMLInputElement).value;
@@ -124,14 +130,12 @@ document.addEventListener("DOMContentLoaded", function () {
         if (skillsList.children.length > 0) {
             const ulElement = document.createElement("ul");
 
-            // Iterate through the skills and add them as <li> items
-            Array.from(skillsList.children).forEach((skill: Element) => {
+            Array.from(skillsList.children).forEach((skill) => {
                 const liElement = document.createElement("li");
                 liElement.textContent = skill.textContent || "";
                 ulElement.appendChild(liElement);
             });
 
-            // Append the <ul> to the skills section
             skillsSection.appendChild(ulElement);
             resumeOutput.appendChild(skillsSection);
         }
