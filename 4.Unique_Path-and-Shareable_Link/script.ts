@@ -1,10 +1,7 @@
-// Utility function to sanitize the name to generate a username
 function generateUsername(name: string): string {
-    // Remove spaces and any special characters except alphanumeric
-    return name.replace(/\s+/g, "").replace(/[^a-zA-Z0-9]/g, "");
+    // Remove spaces and special characters
+    return name.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '');
 }
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("resumeForm") as HTMLFormElement;
     const educationFields = document.getElementById("educationFields") as HTMLDivElement;
@@ -19,8 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const downloadPdfButton = document.getElementById("downloadResume") as HTMLButtonElement;
     const shareableLinkContainer = document.getElementById("shareable-link-container") as HTMLDivElement;
     const shareableLinkElement = document.getElementById("shareable-link") as HTMLAnchorElement;
-    let username = "";
-
 
 
     let isEditing = false;
@@ -89,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const phone = (document.getElementById("phone") as HTMLInputElement).value;
         const profilePicture = (document.getElementById("profilePicture") as HTMLInputElement).files?.[0];
 
-        username = generateUsername(name);
+        let username = generateUsername(name);
 
         // Personal Information Section
         const personalInfoSection = document.createElement("div");
@@ -169,11 +164,21 @@ document.addEventListener("DOMContentLoaded", function () {
             skillsSection.appendChild(ulElement);
             resumeOutput.appendChild(skillsSection);
         }
+
+        // Store resume HTML in localStorage with the sanitized username
+        const resumeHTML = resumeOutput.innerHTML; // Get the generated HTML
+        localStorage.setItem(`resume-${username}`, resumeHTML);
+
+        // share button // Generate the shareable URL
+        const shareableURL = `${window.location.origin}?resume=${encodeURIComponent(username)}`;
+
+        // Display the shareable link
+        shareableLinkContainer.style.display = "block";
+        shareableLinkElement.href = shareableURL;
+        shareableLinkElement.textContent = shareableURL;
+
     });
 
-    // Store resume HTML in localStorage with the sanitized username
-    const resumeHTML = resumeOutput.innerHTML; // Get the generated HTML
-    localStorage.setItem(`resume-${username}`, resumeHTML);
 
     // Edit Mode Toggle
     editResumeButton?.addEventListener("click", () => {
@@ -199,13 +204,6 @@ document.addEventListener("DOMContentLoaded", function () {
         window.print();  // This will print only the #resumeOutput section
     });
 
-    // share button // Generate the shareable URL
-    const shareableURL = `${window.location.origin}?resume=${encodeURIComponent(username)}`;
-
-    // Display the shareable link
-    shareableLinkContainer.style.display = "block";
-    shareableLinkElement.href = shareableURL;
-    shareableLinkElement.textContent = shareableURL;
 
 
     // Handle loading a resume from the shareable link
