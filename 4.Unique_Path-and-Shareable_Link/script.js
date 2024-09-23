@@ -127,8 +127,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Store resume HTML in localStorage with the sanitized username
         var resumeHTML = resumeOutput.innerHTML; // Get the generated HTML
         localStorage.setItem("resume-".concat(username), resumeHTML);
-        // share button // Generate the shareable URL
-        var shareableURL = "".concat(window.location.origin, "?resume=").concat(encodeURIComponent(username));
+        // Generate the shareable URL
+        var shareableURL = "".concat(window.location.protocol, "://").concat(window.location.host).concat(window.location.pathname, "?resume=").concat(encodeURIComponent(username));
         // Display the shareable link
         shareableLinkContainer.style.display = "block";
         shareableLinkElement.href = shareableURL;
