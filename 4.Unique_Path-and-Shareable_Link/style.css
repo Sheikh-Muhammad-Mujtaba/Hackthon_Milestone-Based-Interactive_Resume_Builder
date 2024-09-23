@@ -190,3 +190,20 @@ button.edit-mode {
     margin-top: 10px;
     font-size: 14px;
 }
+
+ /* Hide everything except the resumeOutput during print */
+ @media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #resumeOutput, #resumeOutput * {
+        visibility: visible;
+    }
+
+    #resumeOutput {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}

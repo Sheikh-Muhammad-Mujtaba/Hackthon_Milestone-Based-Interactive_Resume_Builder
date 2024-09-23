@@ -1,199 +1,198 @@
+// Utility function to sanitize the name to generate a username
+function generateUsername(name) {
+    // Remove spaces and any special characters except alphanumeric
+    return name.replace(/\s+/g, "").replace(/[^a-zA-Z0-9]/g, "");
+}
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("resumeForm");
-    const educationFields = document.getElementById("educationFields");
-    const experienceFields = document.getElementById("experienceFields");
-    const skillsList = document.getElementById("skillsList");
-    const resumeOutput = document.getElementById("resumeOutput");
-    const editButton = document.getElementById("editResume");
-    const saveButton = document.getElementById("saveResume");
-    const skillInput = document.getElementById("skillInput");
-
-    // Add Education
-    document.getElementById("addEducation").addEventListener("click", () => {
-        const newField = document.createElement("div");
+    var _a, _b, _c, _d, _e, _f, _g;
+    var form = document.getElementById("resumeForm");
+    var educationFields = document.getElementById("educationFields");
+    var experienceFields = document.getElementById("experienceFields");
+    var skillsList = document.getElementById("skillsList");
+    var resumeOutput = document.getElementById("resumeOutput");
+    var editResumeButton = document.getElementById("editResume");
+    var saveResumeButton = document.getElementById("saveResume");
+    var editMessage = document.getElementById("editMessage");
+    var replacePhotoInput = document.getElementById("replacePhoto");
+    var formattingButtons = document.getElementById("formattingButtons");
+    var downloadPdfButton = document.getElementById("downloadResume");
+    var shareableLinkContainer = document.getElementById("shareable-link-container");
+    var shareableLinkElement = document.getElementById("shareable-link");
+    var username = "";
+    var isEditing = false;
+    // Add Education Entry
+    (_a = document.getElementById("addEducation")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () {
+        var _a;
+        var newField = document.createElement("div");
         newField.classList.add("education-entry");
-        newField.innerHTML = `
-            <input type="text" name="degree" placeholder="Degree" required>
-            <input type="text" name="school" placeholder="School" required>
-            <input type="number" name="graduationYear" placeholder="Graduation Year" required>
-            <button type="button" class="removeEducation">Remove</button>
-        `;
+        newField.innerHTML = "\n            <input type=\"text\" name=\"degree\" placeholder=\"Degree\" required>\n            <input type=\"text\" name=\"school\" placeholder=\"School\" required>\n            <input type=\"number\" name=\"graduationYear\" placeholder=\"Graduation Year\" required>\n            <button type=\"button\" class=\"removeEducation\">Remove</button>\n        ";
         educationFields.appendChild(newField);
-        newField.querySelector(".removeEducation").addEventListener("click", function () {
+        // Remove Education Entry
+        (_a = newField.querySelector(".removeEducation")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () {
             newField.remove();
         });
     });
-
-    // Add Work Experience
-    document.getElementById("addExperience").addEventListener("click", () => {
-        const newField = document.createElement("div");
+    // Add Work Experience Entry
+    (_b = document.getElementById("addExperience")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", function () {
+        var _a;
+        var newField = document.createElement("div");
         newField.classList.add("experience-entry");
-        newField.innerHTML = `
-            <input type="text" name="jobTitle" placeholder="Job Title">
-            <input type="text" name="company" placeholder="Company">
-            <input type="number" name="startYear" placeholder="Start Year">
-            <input type="number" name="endYear" placeholder="End Year">
-            <textarea name="jobDescription" placeholder="Job Description"></textarea>
-            <button type="button" class="removeExperience">Remove</button>
-        `;
+        newField.innerHTML = "\n            <input type=\"text\" name=\"jobTitle\" placeholder=\"Job Title\">\n            <input type=\"text\" name=\"company\" placeholder=\"Company\">\n            <input type=\"number\" name=\"startYear\" placeholder=\"Start Year\">\n            <input type=\"number\" name=\"endYear\" placeholder=\"End Year\">\n            <textarea name=\"jobDescription\" placeholder=\"Job Description\"></textarea>\n            <button type=\"button\" class=\"removeExperience\">Remove</button>\n        ";
         experienceFields.appendChild(newField);
-        newField.querySelector(".removeExperience").addEventListener("click", function () {
+        // Remove Experience Entry
+        (_a = newField.querySelector(".removeExperience")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () {
             newField.remove();
         });
     });
-
     // Add Skills
-    document.getElementById("addSkill").addEventListener("click", () => {
-        const skillValue = skillInput.value.trim();
+    (_c = document.getElementById("addSkill")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", function () {
+        var skillInput = document.getElementById("skillInput");
+        var skillValue = skillInput.value.trim();
         if (skillValue) {
-            const skillItem = document.createElement("div");
+            var skillItem = document.createElement("div");
+            skillItem.textContent = skillValue;
             skillItem.classList.add("skill-item");
-            skillItem.innerHTML = `
-                ${skillValue} 
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="red" class="bi bi-x" viewBox="0 0 16 16">
-                    <path d="M1.293 0a1 1 0 0 1 1.414 0L8 5.586 13.293.293a1 1 0 0 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414 2.707 14.707a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707A1 1 0 0 1 1.293 1.293z"/>
-                </svg>`;
-            
-            // Append the skill item to the list
             skillsList.appendChild(skillItem);
-
-            // Add event listener to the remove icon
-            skillItem.querySelector("svg").addEventListener("click", () => {
-                skillItem.remove();
-            });
-
             skillInput.value = "";
         }
     });
-
-    // Generate Resume
+    // Generate Resume on Form Submit
     form.addEventListener("submit", function (e) {
+        var _a;
         e.preventDefault();
         resumeOutput.innerHTML = "";
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const phone = document.getElementById("phone").value;
-        const profilePicture = document.getElementById("profilePicture").files[0];
-        const personalInfoSection = document.createElement("div");
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+        var profilePicture = (_a = document.getElementById("profilePicture").files) === null || _a === void 0 ? void 0 : _a[0];
+        username = generateUsername(name);
+        // Personal Information Section
+        var personalInfoSection = document.createElement("div");
         personalInfoSection.classList.add("section");
-
         if (profilePicture) {
-            const imgElement = document.createElement("img");
+            var imgElement = document.createElement("img");
             imgElement.src = URL.createObjectURL(profilePicture);
             personalInfoSection.appendChild(imgElement);
         }
-
-        personalInfoSection.innerHTML += `<h1>${name}</h1><h3>Contact</h3><p>Email: ${email}</p><p>Phone: ${phone || "Not provided"}</p>`;
+        personalInfoSection.innerHTML += "\n            <h1>".concat(name, "</h1>\n            <h3>Contact</h3>\n            <p><strong>Email:</strong> ").concat(email, "</p>\n            <p><strong>Phone:</strong> ").concat(phone || "Not provided", "</p>\n        ");
         resumeOutput.appendChild(personalInfoSection);
-
-        // Education Section
-        const educationSection = document.createElement("div");
+        // Education Section (with unordered list)
+        var educationSection = document.createElement("div");
         educationSection.classList.add("section");
         educationSection.innerHTML = "<h3>Education</h3>";
-        document.querySelectorAll(".education-entry").forEach((entry) => {
-            const degree = entry.querySelector('input[name="degree"]').value;
-            const school = entry.querySelector('input[name="school"]').value;
-            const graduationYear = entry.querySelector('input[name="graduationYear"]').value;
-            educationSection.innerHTML += `<p>${degree} from ${school}, year(${graduationYear})</p>`;
+        var educationList = document.createElement("ul");
+        document.querySelectorAll(".education-entry").forEach(function (entry) {
+            var degree = entry.querySelector('input[name="degree"]').value;
+            var school = entry.querySelector('input[name="school"]').value;
+            var graduationYear = entry.querySelector('input[name="graduationYear"]').value;
+            var listItem = document.createElement("li");
+            listItem.innerHTML = "<strong>".concat(degree, "</strong> from ").concat(school, ", Year: (").concat(graduationYear, ")");
+            educationList.appendChild(listItem);
         });
+        educationSection.appendChild(educationList);
         resumeOutput.appendChild(educationSection);
-
-        // Work Experience Section (optional)
-        const experienceSection = document.createElement("div");
+        // Work Experience Section (with unordered list)
+        var experienceSection = document.createElement("div");
         experienceSection.classList.add("section");
         experienceSection.innerHTML = "<h3>Work Experience</h3>";
-        document.querySelectorAll(".experience-entry").forEach((entry) => {
-            const jobTitle = entry.querySelector('input[name="jobTitle"]').value;
-            const company = entry.querySelector('input[name="company"]').value;
-            const startYear = entry.querySelector('input[name="startYear"]').value;
-            const endYear = entry.querySelector('input[name="endYear"]').value;
-            const jobDescription = entry.querySelector('textarea[name="jobDescription"]').value;
-
+        var experienceList = document.createElement("ul");
+        document.querySelectorAll(".experience-entry").forEach(function (entry) {
+            var jobTitle = entry.querySelector('input[name="jobTitle"]').value;
+            var company = entry.querySelector('input[name="company"]').value;
+            var startYear = entry.querySelector('input[name="startYear"]').value;
+            var endYear = entry.querySelector('input[name="endYear"]').value;
+            var jobDescription = entry.querySelector('textarea[name="jobDescription"]').value;
             if (jobTitle || company) {
-                experienceSection.innerHTML += `<p>${jobTitle} at ${company} (${startYear} - ${endYear || "Present"})</p><p>${jobDescription || ""}</p>`;
+                var listItem = document.createElement("li");
+                listItem.innerHTML = "<strong>".concat(jobTitle, "</strong> at ").concat(company, " (").concat(startYear, " - ").concat(endYear || "Present", ")<br>").concat(jobDescription || "");
+                experienceList.appendChild(listItem);
             }
         });
-        if (experienceSection.innerHTML !== "<h3>Work Experience</h3>") {
+        if (experienceList.children.length > 0) {
+            experienceSection.appendChild(experienceList);
             resumeOutput.appendChild(experienceSection);
         }
-
         // Skills Section
-        const skillsSection = document.createElement("div");
-        skillsSection.classList.add("section");
-        skillsSection.innerHTML = "<h3>Skills</h3>";
         if (skillsList.children.length > 0) {
-            const ulElement = document.createElement("ul");
-            Array.from(skillsList.children).forEach((skill) => {
-                const liElement = document.createElement("li");
-                liElement.textContent = skill.textContent.trim();
-                ulElement.appendChild(liElement);
+            var skillsSection = document.createElement("div");
+            skillsSection.classList.add("section");
+            skillsSection.innerHTML = "<h3>Skills</h3>";
+            var ulElement_1 = document.createElement("ul");
+            Array.from(skillsList.children).forEach(function (skill) {
+                var liElement = document.createElement("li");
+                liElement.textContent = skill.textContent || "";
+                ulElement_1.appendChild(liElement);
             });
-            skillsSection.appendChild(ulElement);
+            skillsSection.appendChild(ulElement_1);
             resumeOutput.appendChild(skillsSection);
         }
-
-        // Set initial mode to read-only
-        document.querySelectorAll(".section").forEach(section => {
-            section.classList.add("read-mode");
-        });
-        saveButton.classList.add("edit-mode");
-        editButton.classList.remove("edit-mode");
     });
-
-    // Edit Mode
-    editButton.addEventListener("click", () => {
-        document.querySelectorAll(".section").forEach(section => {
-            section.classList.add("edit-mode");
-            section.classList.remove("read-mode");
-        });
-
-        document.querySelectorAll(".skill-item").forEach(skillItem => {
-            skillItem.querySelector("svg").style.display = "inline";
-        });
-
-        editButton.classList.add("edit-mode");
-        saveButton.classList.remove("edit-mode");
+    // Store resume HTML in localStorage with the sanitized username
+    var resumeHTML = resumeOutput.innerHTML; // Get the generated HTML
+    localStorage.setItem("resume-".concat(username), resumeHTML);
+    // Edit Mode Toggle
+    editResumeButton === null || editResumeButton === void 0 ? void 0 : editResumeButton.addEventListener("click", function () {
+        isEditing = true;
+        editMessage.style.display = "block";
+        formattingButtons.style.display = "block";
+        resumeOutput.setAttribute("contenteditable", "true");
+        editResumeButton.classList.add("hidden");
+        saveResumeButton.classList.remove("hidden");
     });
-
-    // Save Mode
-    saveButton.addEventListener("click", () => {
-        document.querySelectorAll(".section").forEach(section => {
-            section.classList.add("read-mode");
-            section.classList.remove("edit-mode");
-        });
-
-        document.querySelectorAll(".skill-item").forEach(skillItem => {
-            skillItem.querySelector("svg").style.display = "none";
-        });
-
-        saveButton.classList.add("edit-mode");
-        editButton.classList.remove("edit-mode");
+    saveResumeButton === null || saveResumeButton === void 0 ? void 0 : saveResumeButton.addEventListener("click", function () {
+        isEditing = false;
+        editMessage.style.display = "none";
+        formattingButtons.style.display = "none";
+        resumeOutput.setAttribute("contenteditable", "false");
+        editResumeButton.classList.remove("hidden");
+        saveResumeButton.classList.add("hidden");
     });
-});
-
-
-
-document.getElementById("downloadPDF").addEventListener("click", function () {
-    const element = document.getElementById("resumeOutput");
-    const options = {
-        margin: 1,
-        filename: 'resume.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-    html2pdf().from(element).set(options).save();
-});
-
-
-document.getElementById("shareLink").addEventListener("click", function () {
-    const username = document.getElementById("name").value.trim().replace(/\s+/g, '');
-    if (username) {
-        const uniqueURL = `https://resume-builder-two-kappa.vercel.app/Unique_Path-and-Shareable_Link/index.html${username}`;
-        const shareDiv = document.getElementById("shareURL");
-        shareDiv.innerHTML = `<p>Share this link: <a href="${uniqueURL}" target="_blank">${uniqueURL}</a></p>`;
-        shareDiv.classList.remove("hidden");
-    } else {
-        alert("Please enter your name to generate a unique link.");
-    }
+    //download button
+    downloadPdfButton.addEventListener("click", function () {
+        window.print(); // This will print only the #resumeOutput section
+    });
+    // share button // Generate the shareable URL
+    var shareableURL = "".concat(window.location.origin, "?resume=").concat(encodeURIComponent(username));
+    // Display the shareable link
+    shareableLinkContainer.style.display = "block";
+    shareableLinkElement.href = shareableURL;
+    shareableLinkElement.textContent = shareableURL;
+    // Handle loading a resume from the shareable link
+    window.addEventListener("DOMContentLoaded", function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        var resumeUsername = urlParams.get("resume");
+        if (resumeUsername) {
+            // Retrieve the saved resume HTML from localStorage
+            var savedResume = localStorage.getItem("resume-".concat(resumeUsername));
+            if (savedResume) {
+                // Display the saved resume and hide the form
+                resumeOutput.innerHTML = savedResume;
+                form.style.display = "none"; // Hide the form when a resume is loaded
+            }
+        }
+    });
+    // Text Formatting
+    (_d = document.getElementById("boldText")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", function () {
+        document.execCommand("bold", false);
+    });
+    (_e = document.getElementById("italicText")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", function () {
+        document.execCommand("italic", false);
+    });
+    (_f = document.getElementById("underlineText")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", function () {
+        document.execCommand("underline", false);
+    });
+    (_g = document.getElementById("highlightText")) === null || _g === void 0 ? void 0 : _g.addEventListener("click", function () {
+        document.execCommand("hiliteColor", false, "yellow");
+    });
+    // Replace Photo in Edit Mode
+    replacePhotoInput.addEventListener("change", function () {
+        var _a;
+        var file = (_a = replacePhotoInput.files) === null || _a === void 0 ? void 0 : _a[0];
+        if (file) {
+            var imgElement = resumeOutput.querySelector("img");
+            if (imgElement) {
+                imgElement.src = URL.createObjectURL(file);
+            }
+        }
+    });
 });
