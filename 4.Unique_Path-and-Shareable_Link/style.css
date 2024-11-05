@@ -67,12 +67,20 @@ button:hover {
 }
 
 /* Styling for dynamically added entries */
-.education-entry, .experience-entry {
+.education-entry {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
     align-items: flex-start;
 }
+
+.experience-entry {
+    margin-top: 5%;
+}
+
+#addExperience {
+    margin-top: 5%;
+  }
 
 .removeEducation, .removeExperience {
     background-color: #e53935;
@@ -128,26 +136,26 @@ button.edit-mode {
 /* Resume Output Styling */
 #resumeOutput {
     background: #fff;
-    padding: 40px;
+    padding: 2.5rem;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     width: 90%;
-    max-width: 800px;
-    margin: 20px;
+    max-width: 100vw;
+    margin: 1.25rem;
     box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
 }
 
 #resumeOutput img {
-    max-width: 120px;
-    max-height: 120px;
+    max-width: 7.5rem;
+    max-height: 7.5rem;
     border-radius: 50%;
-    margin-right: 20px;
+    margin-right: 1.25rem;
     border: 3px solid #007BFF;
     transition: transform 0.3s ease;
     display: block;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 }
 
 #resumeOutput h1 {
@@ -186,9 +194,36 @@ button.edit-mode {
     display: none;
 }
 
-#shareURL {
-    margin-top: 10px;
-    font-size: 14px;
+#shareable-link {
+    margin-top: 20px;
+    font-size: 0.875rem;
+    width: 50vw;
+}
+
+#downloadResume {
+  margin-top: 2%;
+}
+
+@media (max-width: 580px) {
+    .container {
+        padding: 20px;
+    }
+    fieldset {
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+    .form-title {
+        font-size: 1.3em;
+    }
+    .education-entry {
+        display: flex;
+        flex-direction: column;
+    }
+    .removeEducation {
+        margin-left: 0;
+    }
+
+    
 }
 
  /* Hide everything except the resumeOutput during print */

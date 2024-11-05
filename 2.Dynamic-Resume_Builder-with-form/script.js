@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var _a;
         var newField = document.createElement("div");
         newField.classList.add("experience-entry");
-        newField.innerHTML = "\n            <input type=\"text\" name=\"jobTitle\" placeholder=\"Job Title\">\n            <input type=\"text\" name=\"company\" placeholder=\"Company\">\n            <input type=\"number\" name=\"startYear\" placeholder=\"Start Year\">\n            <input type=\"number\" name=\"endYear\" placeholder=\"End Year\">\n            <textarea name=\"jobDescription\" placeholder=\"Job Description\"></textarea>\n            <button type=\"button\" class=\"removeExperience\">Remove</button>\n        ";
+        newField.innerHTML = "\n            <input type=\"text\" name=\"jobTitle\" placeholder=\"Job Title\">\n            <input type=\"text\" name=\"company\" placeholder=\"Company\">\n            <input type=\"number\" name=\"startYear\" placeholder=\"Start Year\">\n            <input type=\"number\" name=\"endYear\" placeholder=\"End Year\">\n            <div>\n            <textarea name=\"jobDescription\" placeholder=\"Job Description\"></textarea>\n            </div>\n            <button type=\"button\" class=\"removeExperience\">Remove</button>\n        ";
         experienceFields.appendChild(newField);
         // Add Remove button functionality
         (_a = newField.querySelector(".removeExperience")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () {

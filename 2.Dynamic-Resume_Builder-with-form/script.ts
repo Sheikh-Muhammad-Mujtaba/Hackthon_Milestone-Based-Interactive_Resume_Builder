@@ -38,7 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <input type="text" name="company" placeholder="Company">
             <input type="number" name="startYear" placeholder="Start Year">
             <input type="number" name="endYear" placeholder="End Year">
+            <div>
             <textarea name="jobDescription" placeholder="Job Description"></textarea>
+            </div>
             <button type="button" class="removeExperience">Remove</button>
         `;
         experienceFields.appendChild(newField);

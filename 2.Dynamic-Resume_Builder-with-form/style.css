@@ -58,16 +58,29 @@ button:hover {
 }
 
 /* Styling for dynamically added entries */
-.education-entry, .experience-entry {
+
+.education-entry {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
     align-items: flex-start;
 }
 
-.removeEducation, .removeExperience {
+.experience-entry {
+    margin-top: 5%;
+}
+
+#addExperience {
+  margin-top: 5%;
+}
+.removeEducation {
     background-color: #e53935;
     margin-left: auto;
+}
+
+.removeExperience {
+    background-color: #e53935;
+
 }
 
 .removeEducation:hover, .removeExperience:hover {
@@ -90,6 +103,8 @@ textarea {
     box-sizing: border-box; 
 }
 
+
+
 /* Resume Output Styling */
 #resumeOutput {
      background: #fff;
@@ -105,14 +120,12 @@ textarea {
 }
 
 #resumeOutput img {
-    max-width: 120px;
-    max-height: 120px;
+    width: 7.5rem;
+    height: 7.5rem;
     border-radius: 50%;
     margin-right: 20px;
     border: 3px solid #007BFF;
     transition: transform 0.3s ease;
-    display: block; 
-    margin-bottom: 16px; 
 }
 
 #resumeOutput h1 {
@@ -129,11 +142,9 @@ textarea {
 
 
 #resumeOutput .section h1 {
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 5px;
-    color: #007BFF;
-    font-size: 1.7em;
-    margin-bottom: 15px;
+    font-size: 2.5em;
+    margin: 0;
+    color: #333;
     text-transform: uppercase;
 }
 
